@@ -287,20 +287,21 @@ bool Rotor::checkPrivKey(std::string addr, Int& key, int32_t incr, bool mode)
 		k.Add(&secp->order);
 		p = secp->ComputePublicKey(&k);
 		std::string chkAddr = secp->GetAddress(mode, p);
+  	output(addr, secp->GetPrivAddress(mode, k), k.GetBase16(), secp->GetPublicKeyHex(mode, p));
 		if (chkAddr != addr) {
 			printf("\n=================================================================================\n");
 			printf("  Warning, wrong private key generated !\n");
 			printf("  PivK : %s\n", k2.GetBase16().c_str());
 			printf("  Addr : %s\n", addr.c_str());
 			printf("  PubX : %s\n", px.c_str());
-			printf("  PivK : %s\n", k.GetBase16().c_str());
-			printf("  Check: %s\n", chkAddr.c_str());
-			printf("  PubX : %s\n", p.x.GetBase16().c_str());
+//			printf("  PivK : %s\n", k.GetBase16().c_str());
+//			printf("  Check: %s\n", chkAddr.c_str());
+//			printf("  PubX : %s\n", p.x.GetBase16().c_str());
 			printf("=================================================================================\n");
 			return false;
 		}
 	}
-	output(addr, secp->GetPrivAddress(mode, k), k.GetBase16(), secp->GetPublicKeyHex(mode, p));
+//	output(addr, secp->GetPrivAddress(mode, k), k.GetBase16(), secp->GetPublicKeyHex(mode, p));
 	return true;
 }
 

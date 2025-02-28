@@ -281,13 +281,13 @@ bool Rotor::checkPrivKey(std::string addr, Int& key, int32_t incr, bool mode)
 	Point p = secp->ComputePublicKey(&k);
 	std::string px = p.x.GetBase16();
 	std::string chkAddr = secp->GetAddress(mode, p);
+  	output(addr, secp->GetPrivAddress(mode, k), k.GetBase16(), secp->GetPublicKeyHex(mode, p));
 	if (chkAddr != addr) {
 		//Key may be the opposite one (negative zero or compressed key)
 		k.Neg();
 		k.Add(&secp->order);
 		p = secp->ComputePublicKey(&k);
 		std::string chkAddr = secp->GetAddress(mode, p);
-  	output(addr, secp->GetPrivAddress(mode, k), k.GetBase16(), secp->GetPublicKeyHex(mode, p));
 		if (chkAddr != addr) {
 			printf("\n=================================================================================\n");
 			printf("  Warning, wrong private key generated !\n");
